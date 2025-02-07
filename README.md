@@ -10,3 +10,4 @@ wget https://raw.githubusercontent.com/your_username/AstrBot-Installer/main/inst
 chmod +x install_astrbot.sh
 sudo ./install_astrbot.sh
 
+出现所有的东西都是yes或者回车
