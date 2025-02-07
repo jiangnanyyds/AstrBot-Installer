@@ -8,14 +8,19 @@ SERVICE_FILE="/etc/systemd/system/astrbot.service"
 PYTHON_VERSION="python3.12"
 
 # 更新系统并安装依赖
-echo "更新系统并安装 Python..."
-apt update && apt install -y $PYTHON_VERSION $PYTHON_VERSION-venv git wget curl
+echo "更新系统并安装 Python 和 Docker..."
+apt update && apt install -y $PYTHON_VERSION $PYTHON_VERSION-venv git wget curl docker.io sudo
 
 # 确保 Python 版本正确
 if ! command -v $PYTHON_VERSION &>/dev/null; then
     echo "错误：未能成功安装 $PYTHON_VERSION，请检查您的系统是否支持 Python 3.12。"
     exit 1
 fi
+
+# 启动并启用 Docker（如果未运行）
+echo "启动 Docker 并设置开机自启..."
+systemctl start docker
+systemctl enable docker
 
 # 克隆 AstrBot 仓库
 if [ ! -d "$BOT_DIR" ]; then
@@ -47,7 +52,7 @@ After=network.target
 Type=simple
 User=root
 WorkingDirectory=$BOT_DIR
-ExecStart=$BOT_DIR/venv/bin/python $BOT_DIR/main.py
+ExecStart=sudo -E $BOT_DIR/venv/bin/python $BOT_DIR/main.py
 Restart=always
 Environment=PATH=$BOT_DIR/venv/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin
 
@@ -66,4 +71,5 @@ echo "AstrBot 部署完成，检查运行状态..."
 systemctl status astrbot.service --no-pager
 
 echo "AstrBot 已成功部署并设置为开机自启！"
+
 
