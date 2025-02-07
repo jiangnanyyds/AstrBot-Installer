@@ -6,7 +6,7 @@
 
 在终端执行：
 ```bash
-wget https://raw.githubusercontent.com/your_username/AstrBot-Installer/main/install_astrbot.sh
+wget https://raw.githubusercontent.com/jiangnanyyds/AstrBot-Installer/main/install_astrbot.sh
 chmod +x install_astrbot.sh
 sudo ./install_astrbot.sh
 
