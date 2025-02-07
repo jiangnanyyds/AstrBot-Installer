@@ -71,5 +71,5 @@ echo "AstrBot 部署完成，检查运行状态..."
 systemctl status astrbot.service --no-pager
 
 echo "AstrBot 已成功部署并设置为开机自启！"
-
+echo "systemctl status astrbot.service --no-pager   查看面板地址"
 
